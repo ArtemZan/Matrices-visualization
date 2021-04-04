@@ -7,6 +7,9 @@ var grid_points = []
 var new_grid_points = []
 var vectors = []
 var new_vectors = []
+var vertices = []
+var vert_colors = []
+var new_vertices = []
 /*Vertices*/
 
 
@@ -22,6 +25,7 @@ var show_origin = false;
 var show_grid = true;
 var animating = false;
 var animation_duration = 1;
+var wireframe_mode = false;
 /* Settings */
 
 
@@ -172,6 +176,25 @@ function dot(position, size) {
     ctx.arc(position.x, position.y, size, 0, 2 * Math.PI)
     ctx.fill();
 }
+
+function triangle(vert1, vert2, vert3, color) {
+    if (color !== undefined) {
+        if (wireframe_mode)
+            ctx.strokeStyle = color;
+        else
+            ctx.fillStyle = color;
+    }
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.moveTo(vert1.x, vert1.y);
+    ctx.lineTo(vert2.x, vert2.y);
+    ctx.lineTo(vert3.x, vert3.y);
+    if (wireframe_mode)
+        ctx.stroke();
+    else
+        ctx.fill();
+    ctx.closePath();
+}
 /* Rendering */
 
 
@@ -230,6 +253,9 @@ function applyMatrix(event) {
     for (let i = 0; i < vectors.length; i++) {
         new_vectors[i] = vectors[i].vec.multiply(matrix);
     }
+    for (let i = 0; i < vertices.length; i++) {
+        new_vertices[i] = vertices[i].multiply(matrix);
+    }
 
     //Interpalate (smoothly change) between current vertices and transformed vertices
     const steps = animation_duration * 100;
@@ -244,6 +270,11 @@ function applyMatrix(event) {
             vectors[i1].vec.x += (new_vectors[i1].x - vectors[i1].vec.x) / (steps - i);
             vectors[i1].vec.y += (new_vectors[i1].y - vectors[i1].vec.y) / (steps - i);
             vectors[i1].vec.z += (new_vectors[i1].z - vectors[i1].vec.z) / (steps - i);
+        }
+        for (let i1 = 0; i1 < vertices.length; i1++) {
+            vertices[i1].x += (new_vertices[i1].x - vertices[i1].x) / (steps - i);
+            vertices[i1].y += (new_vertices[i1].y - vertices[i1].y) / (steps - i);
+            vertices[i1].z += (new_vertices[i1].z - vertices[i1].z) / (steps - i);
         }
 
 
@@ -270,6 +301,15 @@ function addMatrix(rows, columns) {
 function addVector(event) {
     let inputs = event.target.parentNode.querySelectorAll("input");
     vectors.push({ vec: new vec3(Number(inputs[0].value), Number(inputs[1].value), Number(inputs[2].value)), color: event.target.parentNode.querySelector("input[type=color]").value });
+    redraw();
+}
+
+function addTriangle(event) {
+    let inputs = event.target.parentNode.querySelectorAll("input");
+    vertices.push(new vec3(Number(inputs[0].value), Number(inputs[1].value), Number(inputs[2].value)));
+    vertices.push(new vec3(Number(inputs[3].value), Number(inputs[4].value), Number(inputs[5].value)));
+    vertices.push(new vec3(Number(inputs[6].value), Number(inputs[7].value), Number(inputs[8].value)));
+    vert_colors.push(event.target.parentNode.querySelector("input[type=color]").value);
     redraw();
 }
 
@@ -321,5 +361,9 @@ function draw() {
 
     for (vector of vectors) {
         drawVector(relToWindow(vector.vec.vec2()), vector.color);
+    }
+
+    for (let i = 0; i < vertices.length; i += 3) {
+        triangle(relToWindow(vertices[i]), relToWindow(vertices[i + 1]), relToWindow(vertices[i + 2]), vert_colors[i / 3]);
     }
 }

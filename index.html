@@ -11,7 +11,7 @@
     </canvas>
 
     <div id=window>
-        <button onClick = "loadContext(); createGrid(); vectors = []; draw(); "> Clear </button>
+        <button onClick = "loadContext(); createGrid(); vectors = []; vertices = []; draw(); "> Clear </button>
 
         <div>
             Animation duration (ms): <input type="range" id="animDur" min=100 max=3000 value=1000 onmousemove="animation_duration = Number(event.target.value) / 1000">
@@ -74,6 +74,29 @@
             <input placeholder="z" value = 0>
             <input type = color>
             <button class="add" onclick=addVector(event)>Add vector</button>
+        </div>
+
+        <div class="triangle">
+            <div>
+                <input placeholder="x">
+                <input placeholder="y">
+                <input placeholder="z" value = 0>
+            </div>
+
+            <div>
+                <input placeholder="x">
+                <input placeholder="y">
+                <input placeholder="z" value = 0>
+            </div>
+
+            <div>
+                <input placeholder="x">
+                <input placeholder="y">
+                <input placeholder="z" value = 0>
+            </div>
+            
+            <input type = color>
+            <button class="add" onclick=addTriangle(event)>Add triangle</button>
         </div>
 
         <div>

@@ -96,18 +96,18 @@ input#gridLines::-webkit-slider-thumb
     height: 50px;
 }
 
-input[type=checkbox]
-{
-    width: 30px;
-    height: 20px;
-}
-
-.vector input
+input
 {
     width: 50px;
     outline: none;
     border: none;
     border-radius: 3px;
+}
+
+input[type=checkbox]
+{
+    width: 30px;
+    height: 20px;
 }
 
 #matrices>*:first-child
