@@ -60,14 +60,14 @@ input#gridLines::-webkit-slider-thumb
     left: 10px;
     top: 1%;
     background-color: #dddddd;
-    transition: height 0.2s;
+    transition: max-height 0.3s;
     border-radius: 3px;
 }
 
 #window:hover
 {
     max-height: 98%;
-    overflow: auto;
+    /* overflow: auto; */
 }
 
 #window>*
@@ -96,8 +96,16 @@ input#gridLines::-webkit-slider-thumb
     display: none;
 }
 
-#show-origin
+input[type=checkbox]
 {
     width: 30px;
     height: 20px;
+}
+
+.vector input
+{
+    width: 50px;
+    outline: none;
+    border: none;
+    border-radius: 3px;
 }
