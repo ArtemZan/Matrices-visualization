@@ -11,47 +11,77 @@
     </canvas>
 
     <div id=window>
-        <button onClick = "loadContext(); createGrid(); draw();"> Clear </button>
+        <button onClick = "loadContext(); createGrid(); vectors = []; draw(); "> Clear </button>
+
+        <div>
+            Animation duration (ms): <input type="range" id="animDur" min=100 max=3000 value=1000 onmousemove="animation_duration = Number(event.target.value) / 1000">
+        </div>
 
         <div>
             grid lines: <input type="range" id="gridLines" min=2 max=20 value=5 onmousemove=changeGridlines(event)>
         </div>
 
         <div id = "matrices">
-            <div class="matrix">
+            <div class="matrix matrix-2x2">
                 <table>
                     <tr>
-                        <th><input placeholder="a"></th>
-                        <th><input placeholder="b"></th>
+                        <th><input placeholder="a" value = 1></th>
+                        <th><input placeholder="b" value = 0></th>
                     </tr>
                     <tr>
-                        <th><input placeholder="c"></th>
-                        <th><input placeholder="d"></th>
+                        <th><input placeholder="c" value = 0></th>
+                        <th><input placeholder="d" value = 1></th>
                     </tr>
                 </table>
                 <button class="apply" onclick=applyMatrix(event)>apply</button>
-                <button class="remove" onclick=removeMatrix(event)>remove</button>
+                <button class="remove" onclick="event.target.parentNode.parentNode.removeChild(event.target.parentNode)">remove</button>
             </div>
 
-            <button onclick="addMatrix()">
-                Add matrix
-            </button>
+            <div class="matrix matrix-3x3">
+                <table>
+                    <tr>
+                        <th><input placeholder="a" value = 1></th>
+                        <th><input placeholder="b" value = 0></th>
+                        <th><input placeholder="c" value = 0></th>
+                    </tr>                    
+                    <tr>
+                        <th><input placeholder="d" value = 0></th>
+                        <th><input placeholder="e" value = 1></th>
+                        <th><input placeholder="f" value = 0></th>
+                    </tr>                    
+                    <tr>
+                        <th><input placeholder="g" value = 0></th>
+                        <th><input placeholder="h" value = 0></th>
+                        <th><input placeholder="i" value = 1></th>
+                    </tr>
+                </table>
+
+                <button class="apply" onclick=applyMatrix(event)>apply</button>
+                <button class="remove" onclick="event.target.parentNode.parentNode.removeChild(event.target.parentNode)">remove</button>
+            </div>
+
+            <div style = "background-color: #999999; border-radius: 5px;">
+                <div>Add matrix</div>
+                <button onclick="addMatrix(2, 2)"> 2x2 </button>
+                <button onclick="addMatrix(3, 3)"> 3x3 </button>
+            </div>
         </div>
 
 
         <div class="vector">
             <input placeholder="x">
             <input placeholder="y">
+            <input placeholder="z" value = 0>
             <input type = color>
             <button class="add" onclick=addVector(event)>Add vector</button>
         </div>
 
         <div>
-            Show origin<input id="show-origin" type="checkbox" onclick="showOrHideOrigin(event)">
+            Show origin<input id="show-origin" type="checkbox" onclick="showOrHideOrigin()">
         </div>
 
         <div>
-            Show grid<input id="show-grid" type="checkbox" checked onclick="showOrHideGrid(event)">
+            Show grid<input id="show-grid" type="checkbox" checked onclick="showOrHideGrid()">
         </div>
     </div>
 </body>
