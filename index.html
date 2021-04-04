@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <script src="index.js"></script>
+    <script src="./index.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -11,31 +11,45 @@
     </canvas>
 
     <div id=window>
+        <button onClick = "loadContext(); createGrid(); draw();"> Clear </button>
+
         <div>
             grid lines: <input type="range" id="gridLines" min=2 max=20 value=5 onmousemove=changeGridlines(event)>
         </div>
-        <div class="matrix">
-            <table>
-                <tr>
-                    <th><input placeholder="a"></th>
-                    <th><input placeholder="b"></th>
-                </tr>
-                <tr>
-                    <th><input placeholder="c"></th>
-                    <th><input placeholder="d"></th>
-                </tr>
-            </table>
-            <button class="apply" onclick=applyMatrix(event)>apply</button>
-            <button class="remove" onclick=removeMatrix(event)>remove</button>
+
+        <div id = "matrices">
+            <div class="matrix">
+                <table>
+                    <tr>
+                        <th><input placeholder="a"></th>
+                        <th><input placeholder="b"></th>
+                    </tr>
+                    <tr>
+                        <th><input placeholder="c"></th>
+                        <th><input placeholder="d"></th>
+                    </tr>
+                </table>
+                <button class="apply" onclick=applyMatrix(event)>apply</button>
+                <button class="remove" onclick=removeMatrix(event)>remove</button>
+            </div>
+
+            <button onclick="addMatrix()">
+                Add matrix
+            </button>
         </div>
+
+
         <div class="vector">
             <input placeholder="x">
             <input placeholder="y">
+            <input type = color>
             <button class="add" onclick=addVector(event)>Add vector</button>
         </div>
+
         <div>
             Show origin<input id="show-origin" type="checkbox" onclick="showOrHideOrigin(event)">
         </div>
+
         <div>
             Show grid<input id="show-grid" type="checkbox" checked onclick="showOrHideGrid(event)">
         </div>

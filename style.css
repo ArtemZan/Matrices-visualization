@@ -91,11 +91,6 @@ input#gridLines::-webkit-slider-thumb
     height: 50px;
 }
 
-.matrix .remove
-{
-    display: none;
-}
-
 input[type=checkbox]
 {
     width: 30px;
@@ -108,4 +103,9 @@ input[type=checkbox]
     outline: none;
     border: none;
     border-radius: 3px;
+}
+
+#matrices>*:first-child
+{
+    display: none;
 }
